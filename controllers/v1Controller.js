@@ -1,4 +1,5 @@
-const tweets = require('../helpers/tweets');
+// const tweets = require('../helpers/tweets');
+const Db = require('../helpers/toDb');
 
 module.exports = {
   getVersion: (req, res) => {
@@ -7,12 +8,9 @@ module.exports = {
     })
   },
 
-  getLatest: (req, res) => {
+  getLatest: async (req, res) => {
     if(req.params.json == 'latest.json') {
-      res.send({
-        latest: true,
-        tweet: tweets.get()
-      })
+      res.send(await Db.getTweetBank(req.query.page ? req.query.page : 1))
     } else {
       res.status(400).send({
         err: 'invalid request'
