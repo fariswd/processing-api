@@ -11,7 +11,7 @@ module.exports = {
   },
   getLatestId: async () => {
     try {
-      const success = await TweetBank.findOne().sort({created_at: -1})
+      const success = await TweetBank.findOne().sort({createdAt: -1})
       if(success == null) {
         return 0
       } else {
@@ -25,7 +25,7 @@ module.exports = {
   getTweetBank: async (page) => {
     try {
       const skip = page ? (+page - 1) * 5 : 0
-      const success = await TweetBank.find().sort({created_at: -1}).limit(5).skip(skip)
+      const success = await TweetBank.find().sort({createdAt: -1}).limit(5).skip(skip)
       return {
         status: 'OK',
         result: success,
