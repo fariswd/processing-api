@@ -24,7 +24,7 @@ const write = () => {
     if (err) {
       console.log(err)
     } else {
-      let content = `${data}\n${msgEveryCron}`
+      let content = `${data}\n${msgEveryCron} ${new Date()}`
       writeLogInit(false, content, (err, stat) => {
         if(err) {
           console.log(err)

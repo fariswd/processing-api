@@ -11,11 +11,7 @@ module.exports = {
       count: tweetCount,
     };
     if (lastId != 0) {
-      params = {
-        screen_name: fromAccount,
-        count: tweetCount,
-        since_id: lastId
-      };
+      params.since_id = lastId
     }
     t.get('statuses/user_timeline', params, function(error, tweets, response) {
       if (!error) {
