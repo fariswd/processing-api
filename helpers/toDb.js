@@ -12,7 +12,11 @@ module.exports = {
   getLatestId: async () => {
     try {
       const success = await TweetBank.findOne().sort({created_at: -1})
-      return success.twitterId || ''
+      if(success == null) {
+        return 0
+      } else {
+        return success.twitterId
+      }
     } catch (e) {
       console.log('err get latest id', e)
       return '0'

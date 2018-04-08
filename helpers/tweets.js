@@ -6,11 +6,17 @@ const { fromAccount, tweetCount }  = require('../cronConfig')
 module.exports = {
   getTwitter: async (tweetCb) => {
     const lastId = await Db.getLatestId()
-    const params = {
+    let params = {
       screen_name: fromAccount,
       count: tweetCount,
-      since_id: lastId,
     };
+    if (lastId != 0) {
+      params = {
+        screen_name: fromAccount,
+        count: tweetCount,
+        since_id: lastId
+      };
+    }
     t.get('statuses/user_timeline', params, function(error, tweets, response) {
       if (!error) {
         let toTweetBankForSave = []
@@ -22,8 +28,10 @@ module.exports = {
             createdAt: new Date(eachTweet.created_at),
           })
         })
-        Db.save(toTweetBankForSave)
-        tweetCb(tweets)
+        if(toTweetBankForSave.length > 0) {
+          Db.save(toTweetBankForSave)
+        }
+        tweetCb(toTweetBankForSave)
       }
     })
   }
