@@ -10,6 +10,12 @@ npm run start (or dev with nodemon),
 running on port 3000
 ```
 
+start cron:
+```
+edit cronConfig.js
+npm run cron
+```
+
 ## Endpoint
 ENDPOINT | HTTP | QUERY | DESCRIPTION
 ---|---|---|---

@@ -1,12 +1,14 @@
 const t = require('./twitterConfig')
 const Db = require('./toDb')
 
+const { fromAccount, tweetCount }  = require('../cronConfig')
+
 module.exports = {
   getTwitter: async (tweetCb) => {
     const lastId = await Db.getLatestId()
     const params = {
-      screen_name: 'Jkt48Processing',
-      count: 10,
+      screen_name: fromAccount,
+      count: tweetCount,
       since_id: lastId,
     };
     t.get('statuses/user_timeline', params, function(error, tweets, response) {
